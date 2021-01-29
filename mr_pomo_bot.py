@@ -1,3 +1,4 @@
+import asyncio
 import discord
 import os
 from dotenv import load_dotenv
@@ -19,7 +20,20 @@ async def on_ready():
 #@client.event
 @bot.command(name="start", help="Starts a Pomodoro timer")
 async def start_timer(ctx):
-    await ctx.send("Time to work!")
+    start_work_em = discord.Embed(title="Time to start working!", color=0x33c633)
+    await ctx.send(embed = start_work_em)
+    await asyncio.sleep(5)
+    start_play_em = discord.Embed(title="Time to start your break!", color=0x33c633)
+    await ctx.send(embed = start_play_em)
+
+
+@bot.command(name="stop", help="Stop a Pomodoro timer")
+async def stop_timer(ctx):
+    stop_timer_em = discord.Embed(title="Timer has been stopped!", color=0xc63333)
+    await ctx.send(embed = stop_timer_em)
+
+
+
 #    if message.author == client.user:
 #        return
 #    if message.content.startswith('$hello'):
