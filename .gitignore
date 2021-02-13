@@ -5,3 +5,4 @@ __pycache__/
 .idea/
 .coveragerc
 htmlcov/
+.pytest_cache/
