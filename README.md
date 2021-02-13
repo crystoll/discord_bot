@@ -17,22 +17,21 @@ First two you can create in discord.com. The rest you can create in https://disc
 Additionally, of course, you should already have Python 3.x set up the way you like it, and suitable IDE ready to go (See previous videos on this channel)
 
 
-
-
-
-
-
-
-
 ## 2. Start coding
 
-First you need a few libraries:
+I have added some libraries over time. In current version they can be found from requirements.txt file, so before you start, you can just do something like:
+
+´´´
+pip install requirements.txt
+´´´
+
+If you are playing with the very initial commits I've made, you can just do something like:
 
 ```
 pip install python-dotenv discord.py
 ```
 
-So that's two fun libraries covered. Then you need to create the .env file, and set it up like this:
+Then you need to create the .env file, and set it up like this:
 
 BOT_TOKEN=<MYBOTTOKENGOESHERE>
 
@@ -46,6 +45,40 @@ print(os.environ['BOT_TOKEN'])
 ```
 
 The rest you can pick up from https://discordpy.readthedocs.io/en/latest/
+
+## 3. How to see earlier versions of the code? (AKA I'm following the video series, and want to see what you did in episode 2?) 
+
+Yes, I always push here the latest version of the code, so if you make a clone, that's what you get. If you want to see the earlier, simpler steps, fortunately that's rather easy.
+
+You can list all the commits I've made like this:
+
+```
+git log
+```
+
+Once you see a commit you like, for example:
+
+```
+commit ed8c6e4b491ac0bf8b37f61bb1156362efdd34f2
+Author: Arto Santala <crystoll@gmail.com>
+Date:   Fri Jan 29 14:50:55 2021 +0200
+
+    Initial import. Basic bot going on
+```
+
+You can temporarily check it out by doing:
+
+```
+git checkout ed8c6
+```
+
+This takes you to detached head-state, but you can see the code so far, and can make your own version of it, or just study it, as you prefer.
+
+If you want to go back to latest version available in server, you can always do a:
+
+```
+git checkout -B master origin/master
+```
 
 
 
