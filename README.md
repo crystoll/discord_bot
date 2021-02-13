@@ -72,12 +72,17 @@ You can temporarily check it out by doing:
 git checkout ed8c6
 ```
 
-This takes you to detached head-state, but you can see the code so far, and can make your own version of it, or just study it, as you prefer.
+This takes you to detached head-state, but you can see the code so far, and can make your own version of it, or just study it, as you prefer. I have also tagged main episode parts so you can alternatively just do:
+
+```
+git checkout episode3
+```
+
 
 If you want to go back to latest version available in server, you can always do a:
 
 ```
-git checkout -B master origin/master
+git checkout -B main origin/main
 ```
 
 
