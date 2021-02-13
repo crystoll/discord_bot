@@ -3,6 +3,6 @@
 .python-version
 __pycache__/
 .idea/
-.coveragerc
+.coverage
 htmlcov/
 .pytest_cache/
