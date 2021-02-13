@@ -1,7 +1,7 @@
 import asyncio
 import discord
 import os
-from timer import Timer
+from pomobot.timer import Timer
 from dotenv import load_dotenv
 from discord.ext import commands
 

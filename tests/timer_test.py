@@ -1,4 +1,4 @@
-from timer import Timer
+from pomobot.timer import Timer
 
 
 def test_start_initializes_vars_properly():
