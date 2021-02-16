@@ -1,7 +1,7 @@
 import asyncio
 import discord
 import os
-from pomobot.timer import Timer
+from pomobot.timer import Timer, TimerStatus
 from dotenv import load_dotenv
 from discord.ext import commands
 
@@ -27,10 +27,11 @@ class DiscordCog(commands.Cog):
     async def start(self, ctx):
         await self.show_message(ctx, "Time to start working!", COLOR_SUCCESS)
         self.timer.start()
-        while self.timer.is_running():
+        while self.timer.get_status() == TimerStatus.RUNNING:
             await asyncio.sleep(1)
             self.timer.tick()
-        await self.show_message(ctx, "Time to start your break!", COLOR_SUCCESS)
+        if self.timer.get_status() == TimerStatus.EXPIRED:
+            await self.show_message(ctx, "Time to start your break!", COLOR_SUCCESS)
 
 
     async def show_message(self, ctx, title, color):
@@ -46,7 +47,7 @@ class DiscordCog(commands.Cog):
 
     @commands.command()
     async def show_time(self, ctx):
-        await ctx.send(f"Current timer status is : {self.timer.is_running()}")
+        await ctx.send(f"Current timer status is : {self.timer.get_status()}")
         await ctx.send(f"Current time is : {self.timer.get_ticks()}")
 
 
