@@ -15,7 +15,7 @@ class DiscordCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.timer = Timer()
+        self.timer = Timer(10)
 
 
     @commands.Cog.listener()
@@ -25,6 +25,9 @@ class DiscordCog(commands.Cog):
 
     @commands.command()
     async def start(self, ctx):
+        if self.timer.get_status() == TimerStatus.RUNNING:
+            await self.show_message(ctx, "Timer is already running! You should stop the timer before you can restart it!", COLOR_SUCCESS)    
+            return
         await self.show_message(ctx, "Time to start working!", COLOR_SUCCESS)
         self.timer.start()
         while self.timer.get_status() == TimerStatus.RUNNING:
@@ -41,6 +44,9 @@ class DiscordCog(commands.Cog):
 
     @commands.command()
     async def stop(self, ctx):
+        if self.timer.get_status() != TimerStatus.RUNNING:
+            await self.show_message(ctx, "Timer is already stopped! You should start the timer before you can stop it!", COLOR_SUCCESS)    
+            return        
         await self.show_message(ctx, "Timer has been stopped!", COLOR_DANGER)
         self.timer.stop()
 
