@@ -86,4 +86,16 @@ git checkout -B main origin/main
 ```
 
 
+## 4. How to run this as a module?
+
+Now that we have refactored code under packages, it makes more sense to run this as a module. From command line it's rather easy:
+
+```
+python3 -m pomobot
+```
+
+For VSCode, I showed in pomobot series part 9 video, how to set it up. But short notes are:
+- Go to Run - Add Configuration - Python - Python Module (module name: pomobot)
+- Then to run this, you can either press F5, or go to Run - Start Debugging
+
 
