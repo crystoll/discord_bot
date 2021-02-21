@@ -2,6 +2,7 @@
 
 from enum import Enum
 
+
 class TimerStatus(Enum):
     INITIALIZED = 1
     RUNNING = 2
@@ -11,15 +12,15 @@ class TimerStatus(Enum):
 
 class Timer:
 
-    def __init__(self, max_ticks = 5):
+    def __init__(self):
         self.status = TimerStatus.INITIALIZED
         self.ticks = 0
-        self.max_ticks = max_ticks
 
     def get_status(self):
         return self.status
 
-    def start(self):
+    def start(self, max_ticks):
+        self.max_ticks = max_ticks
         self.status = TimerStatus.RUNNING
         self.ticks = 0
 
@@ -33,5 +34,3 @@ class Timer:
         self.ticks += 1
         if self.get_ticks() >= self.max_ticks:
             self.status = TimerStatus.EXPIRED
-
-    

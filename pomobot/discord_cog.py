@@ -15,7 +15,7 @@ class DiscordCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.timer = Timer(10)
+        self.timer = Timer()
 
 
     @commands.Cog.listener()
@@ -29,12 +29,18 @@ class DiscordCog(commands.Cog):
             await self.show_message(ctx, "Timer is already running! You should stop the timer before you can restart it!", COLOR_SUCCESS)    
             return
         await self.show_message(ctx, "Time to start working!", COLOR_SUCCESS)
-        self.timer.start()
+        self.timer.start(max_ticks=10)
         while self.timer.get_status() == TimerStatus.RUNNING:
             await asyncio.sleep(1)
             self.timer.tick()
         if self.timer.get_status() == TimerStatus.EXPIRED:
             await self.show_message(ctx, "Time to start your break!", COLOR_SUCCESS)
+            self.timer.start(max_ticks=10)
+            while self.timer.get_status() == TimerStatus.RUNNING:
+                await asyncio.sleep(1)
+                self.timer.tick()
+            if self.timer.get_status() == TimerStatus.EXPIRED:
+                await self.show_message(ctx, "Okay, break over!", COLOR_SUCCESS)
 
 
     async def show_message(self, ctx, title, color):
