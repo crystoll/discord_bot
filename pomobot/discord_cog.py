@@ -1,6 +1,8 @@
 import asyncio
 import discord
+import sqlite3
 import os
+from datetime import datetime
 from pomobot.timer import Timer, TimerStatus
 from dotenv import load_dotenv
 from discord.ext import commands
@@ -16,6 +18,22 @@ class DiscordCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.timer = Timer()
+        self.db = sqlite3.connect('pomobot.db')
+        self.create_tables()
+
+
+    def create_tables(self):
+        cur = self.db.cursor()
+        # Create table
+        cur.execute('''
+        CREATE TABLE IF NOT EXISTS alarms (
+            id integer PRIMARY KEY AUTOINCREMENT,
+            username text NOT NULL,
+            start_time text NOT NULL,
+            delay text NOT NULL
+            )
+        ''')
+        self.db.commit()
 
 
     @commands.Cog.listener()
@@ -28,6 +46,20 @@ class DiscordCog(commands.Cog):
         if self.timer.get_status() == TimerStatus.RUNNING:
             await self.show_message(ctx, "Timer is already running! You should stop the timer before you can restart it!", COLOR_SUCCESS)    
             return
+
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        cur = self.db.cursor()
+        cur.execute('''
+        INSERT INTO alarms (username, start_time, delay)
+            VALUES (?,?,?)
+        ''', [str(ctx.author),current_time,'10'])
+        self.db.commit()
+
+        cur = self.db.cursor()
+        for row in cur.execute('SELECT * FROM alarms'):
+            print(row)
+
         await self.show_message(ctx, "Time to start working!", COLOR_SUCCESS)
         self.timer.start(max_ticks=10)
         while self.timer.get_status() == TimerStatus.RUNNING:
